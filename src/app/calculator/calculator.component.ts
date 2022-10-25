@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ignoreElements } from 'rxjs';
 
 @Component({
   selector: 'app-calculator',
@@ -22,17 +21,21 @@ export class CalculatorComponent implements OnInit {
         return firstOp * secondOp;
       case '/':
         return firstOp / secondOp;
+      case '%':
+        return firstOp % secondOp;
       case '=':
         return secondOp;
     }
   }
 
   getNumber(id: string) {
-    if(this.secondValue) {
+    if (this.secondValue) {
       this.currentValue = id;
       this.secondValue = false;
     } else {
-      this.currentValue === '0' ? this.currentValue = id : this.currentValue += id;
+      this.currentValue === '0'
+        ? (this.currentValue = id)
+        : (this.currentValue += id);
     }
   }
   getOperator(op: string) {
@@ -40,7 +43,11 @@ export class CalculatorComponent implements OnInit {
     if (this.firstOp === null) {
       this.firstOp = Number(this.currentValue);
     } else if (this.operator) {
-      const result = this.calc(this.firstOp, Number(this.currentValue), this.operator);
+      const result = this.calc(
+        this.firstOp,
+        Number(this.currentValue),
+        this.operator
+      );
       this.currentValue = String(result);
       this.firstOp = result;
     }
@@ -48,12 +55,17 @@ export class CalculatorComponent implements OnInit {
     this.operator = op;
   }
   getComma(cma: string) {
-    if(this.currentValue.indexOf('.') === -1) {
-      this.currentValue += '.';
+    if (this.currentValue.indexOf('.') === -1) {
+      this.currentValue += cma;
     }
   }
   getClear(clr: string) {
-    this.currentValue = '0';
+    if(clr === 'AC'){
+      this.currentValue = '0';
+      this.firstOp = null;
+      this.operator = null;
+      this.secondValue = false;
+    }
   }
   constructor() {}
 

@@ -30,13 +30,15 @@ button {
 }
 
 .zero {
-    padding: 0px 85px 0 85px;
+    width: 42%;
     border-radius: 15px;
+    text-align: left;
+    padding-left: 21px;
 }
 
 .result {
 display: flex;
-justify-content: end;
+justify-content: flex-end;
 margin: 36px 42px 36px 0;
 font-size: 66px;
 font-weight: 600;
